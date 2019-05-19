@@ -1,0 +1,33 @@
+import csv
+import nltk
+from nltk.corpus import stopwords
+nltk.download('stopwords')
+import itertools
+
+compiled=[]
+
+with open("cw bing.txt") as file:
+    data = file.read()
+    text=data.lower()
+    by_line=text.split('\n')
+    for each_line in by_line:
+        indi_word=each_line.split(' ')
+        compiled.append(indi_word)
+
+combined=list(itertools.chain.from_iterable(compiled))
+
+#print (text)
+
+stop_words=stopwords.words('english')            
+
+no_more_stopwords=[w for w in combined if not w in stop_words]
+
+#print (no_more_stopwords)
+
+empty=[]
+rows=zip(no_more_stopwords,)
+
+with open('titles cw bing.csv', "w") as f:
+    writer = csv.writer(f)
+    for row in rows:
+        writer.writerow(row)
